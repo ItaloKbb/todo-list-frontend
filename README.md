@@ -1,73 +1,90 @@
-# React + TypeScript + Vite
+# 🚀 Meu To-Do List (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o frontend do projeto To-Do List, desenvolvido com React, Vite e Tailwind CSS. A aplicação oferece uma experiência de usuário moderna e reativa para gerenciamento de tarefas, com autenticação segura provida pelo Clerk e gerenciamento de estado de servidor otimista com React Query.
 
-Currently, two official plugins are available:
+## ✨ Features (Funcionalidades)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  * **Autenticação Segura:** Cadastro e login de usuários utilizando [Clerk](https://www.google.com/search?q=https%22//clerk.com/%22).
+  * **Gerenciamento de Tarefas (CRUD):** Criação, leitura, atualização e exclusão de tarefas.
+  * **UX Premium (Otimista):** A interface é atualizada instantaneamente ao marcar/excluir tarefas, parecendo instantânea para o usuário (graças ao React Query).
+  * **Design Responsivo:** Interface limpa e moderna que funciona em desktops e dispositivos móveis (construída com Tailwind CSS).
+  * **Validação de Formulário:** Validação de dados robusta no lado do cliente usando Zod, garantindo que apenas dados válidos sejam enviados à API.
 
-## React Compiler
+## 💻 Tech Stack (Tecnologias Utilizadas)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  * **Framework/Biblioteca:** React 18+ com Vite
+  * **Linguagem:** TypeScript
+  * **Estilização:** Tailwind CSS (com `cva` para variantes)
+  * **Gerenciamento de Estado de API:** TanStack Query (React Query)
+  * **Autenticação:** Clerk
+  * **Roteamento:** React Router DOM
+  * **Validação de Schema:** Zod
+  * **Formulários:** React Hook Form
+  * **Ícones:** Lucide React
+  * **Requisições HTTP:** Axios
 
-## Expanding the ESLint configuration
+-----
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚙️ Instalação e Configuração
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Siga os passos abaixo para rodar o projeto localmente.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1\. Pré-requisitos
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+  * [Node.js](https://nodejs.org/) (versão 18 ou superior)
+  * [npm](https://www.npmjs.com/) (geralmente instalado com o Node.js)
+  * A [API de To-Do List](https://todo-list-api-teal.vercel.app/api/v1/) deve estar rodando (localmente ou em deploy).
+
+### 2\. Clonar o Repositório
+
+```bash
+git clone https://github.com/ItaloKbb/todo-list-frontend.git
+cd todo-list-frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3\. Instalar Dependências
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm install
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 4\. Configurar Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto (`/`) e adicione as seguintes chaves:
+
+```env
+# Chave pública do Clerk (encontrada no seu dashboard do Clerk)
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_SUA_CHAVE_PUBLICA_AQUI
+
+# (Opcional) URL base da sua API
+# VITE_API_BASE_URL=http://localhost:3000/api/v1
+```
+
+### 5\. Rodar o Projeto
+
+```bash
+npm run dev
+```
+
+Abra [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173) (ou a porta indicada no terminal) no seu navegador.
+
+-----
+
+## 📁 Estrutura do Projeto (Atomic Design)
+
+O projeto segue uma arquitetura baseada no Atomic Design para organizar os componentes de UI, facilitando a manutenção e reutilização.
+
+```
+src/
+├── api/              # Lógica de requisições (apiClient, taskService)
+├── components/       # Componentes de UI
+│   ├── atoms/        # Os blocos de construção básicos (Button, Input, Spinner)
+│   ├── molecules/    # Grupos de átomos (FormField, TaskItem)
+│   └── organisms/    # Seções da UI (Header, TaskForm, TaskList)
+├── lib/              # Utilitários (ex: zodSchemas.ts)
+│   └──hooks/            # Hooks customizados (ex: useTasks.ts com React Query)
+├── pages/            # Páginas da aplicação (AuthPage, DashboardPage)
+├── styles/           # Estilos globais (global.css)
+├── App.tsx           # Configuração de Roteamento (React Router)
+└── main.tsx          # Ponto de entrada (Renderização do React, Providers)
 ```
