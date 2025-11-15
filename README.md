@@ -4,7 +4,7 @@ Este é o frontend do projeto To-Do List, desenvolvido com React, Vite e Tailwin
 
 ## ✨ Features (Funcionalidades)
 
-  * **Autenticação Segura:** Cadastro e login de usuários utilizando [Clerk](https://www.google.com/search?q=https%22//clerk.com/%22).
+  * **Autenticação Segura:** Cadastro e login de usuários utilizando [Clerk](https://clerk.com/).
   * **Gerenciamento de Tarefas (CRUD):** Criação, leitura, atualização e exclusão de tarefas.
   * **UX Premium (Otimista):** A interface é atualizada instantaneamente ao marcar/excluir tarefas, parecendo instantânea para o usuário (graças ao React Query).
   * **Design Responsivo:** Interface limpa e moderna que funciona em desktops e dispositivos móveis (construída com Tailwind CSS).
@@ -66,7 +66,7 @@ VITE_CLERK_PUBLISHABLE_KEY=pk_test_SUA_CHAVE_PUBLICA_AQUI
 npm run dev
 ```
 
-Abra [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173) (ou a porta indicada no terminal) no seu navegador.
+Abra [http://localhost:5173](http://localhost:5173) (ou a porta indicada no terminal) no seu navegador.
 
 -----
 
@@ -88,3 +88,20 @@ src/
 ├── App.tsx           # Configuração de Roteamento (React Router)
 └── main.tsx          # Ponto de entrada (Renderização do React, Providers)
 ```
+
+### 4. Diagrama de arquitetura
+
+```mermaid
+flowchart LR
+    User["Usuario"] --> FE["Frontend (React / Vite)"]
+
+    subgraph "Sistema To-Do List"
+        FE -- "API REST (JSON)" --> BE["Backend (Node.js / Express)"]
+        BE -- "Prisma" --> DB["Database (Postgres)"]
+    end
+
+    subgraph "Serviço Externo"
+        FE -- "Autenticação" --> Clerk["Clerk"]
+        BE -- "Validação de Token" --> Clerk
+    end
+```    
